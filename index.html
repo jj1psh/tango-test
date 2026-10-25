@@ -2124,10 +2124,11 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
 (() => {
   // Supabase Dashboard > Project Settings > API から値を取得して設定してください。
   // publishable/anon keyのみ使用。service_role / secret keyは絶対に記載しないでください。
-  const SUPABASE_URL = "ここにSupabaseのProject URLを入力";
-  const SUPABASE_ANON_KEY = "ここにSupabaseのpublishableまたはanon keyを入力";
+  const  const SUPABASE_URL = "tourdfrbyfuqegdtoboc
+";
+  const SUPABASE_ANON_KEY = "sb_publishable_ovt5Ht6-w52zYrG6jrD51A_RYmJNMXB";
   const LOGIN_USERNAME = "JJ1PSH";
-  const LOGIN_EMAIL = "ここにSupabaseに登録するメールアドレスを入力";
+  const LOGIN_EMAIL = "jj1psh.kuon@gmail.com";
   const gate=document.getElementById('loginGate'), notice=document.getElementById('authSetupNotice'), status=document.getElementById('authStatus'), form=document.getElementById('authForm'), logout=document.getElementById('authLogout'), bar=document.getElementById('authUserBar'), emailLabel=document.getElementById('authUserEmail'), appRoot=document.getElementById('appRoot');
   const configured=SUPABASE_URL.startsWith('https://')&&!SUPABASE_URL.includes('ここに')&&SUPABASE_ANON_KEY.length>20&&!SUPABASE_ANON_KEY.includes('ここに')&&LOGIN_EMAIL.includes('@')&&!LOGIN_EMAIL.includes('ここに');
   const say=m=>status.textContent=m; const signedOut=()=>{gate.hidden=false;bar.hidden=true;appRoot.inert=true;appRoot.setAttribute('aria-hidden','true')}; const signedIn=u=>{gate.hidden=true;bar.hidden=false;appRoot.inert=false;appRoot.setAttribute('aria-hidden','false');emailLabel.textContent='JJ1PSH でログイン中'};
