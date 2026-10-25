@@ -1,0 +1,39 @@
+単語テストメーカー（iPad対応）— JJ1PSH・1アカウント設定手順
+
+この版は、ログイン画面に「JJ1PSH」とパスワードを入力する方式です。アプリ内から新規登録はできません。Supabase側に作成した1つのアカウントを2人で共有します。
+
+重要：パスワードはHTMLに書き込まれません。Supabaseのユーザー作成画面で設定してください。HTMLに記載するのはSupabaseのProject URL、公開用キー、認証用ユーザーのメールアドレスだけです。service_role / secret keyは絶対にHTMLへ貼り付けないでください。
+
+A. Supabaseを最初から設定する
+1. https://supabase.com/ を開き、Sign in / Start your project からアカウントを作成します。
+2. New projectを選び、プロジェクト名（例：tango-test-maker）、データベースパスワード、リージョンを設定して作成します。データベースパスワードはSupabase用のもので、アプリのログインパスワードとは別です。
+3. プロジェクトができたら、Project Settings（歯車）> API Keys（または Data API / API）を開き、Project URLとPublishable key（またはlegacy anon public key）をコピーします。
+4. Authentication > Sign In / Providers（画面によっては Sign In / Providers > Email）でEmail/Password認証を有効にします。
+5. Authentication > Usersを開き、「Add user」からユーザーを1人だけ作成します。メールアドレスには、自分が管理できるメールアドレスを入力します。パスワードには、アプリで使うパスワードを設定します。確認メールを要求する設定の場合は、メールを確認するか、管理画面でユーザーを確認済みにしてください。
+6. Authentication > General Configurationで「Allow new users to sign up」をOFFにして、一般ユーザーの新規登録を停止します。管理画面から作ったこの1アカウントだけを使います。
+
+B. index.htmlに接続情報を設定する
+1. ZIPを解凍し、index.htmlをメモ帳などのテキストエディタで開きます。
+2. ファイルの下の方にある次の4つの定数を探します。
+   const SUPABASE_URL = "ここにSupabaseのProject URLを入力";
+   const SUPABASE_ANON_KEY = "ここにSupabaseのpublishableまたはanon keyを入力";
+   const LOGIN_USERNAME = "JJ1PSH";
+   const LOGIN_EMAIL = "ここにSupabaseに登録するメールアドレスを入力";
+3. SUPABASE_URLに手順A-3のProject URL、SUPABASE_ANON_KEYに公開用キー、LOGIN_EMAILに手順A-5で作成したユーザーのメールアドレスを入力します。
+4. LOGIN_USERNAMEはJJ1PSHのままにします。パスワードはコードには書かず、手順A-5でSupabaseに設定したパスワードをログイン画面で入力します。
+5. 保存します。service_role keyやsecret keyは絶対に使わないでください。
+
+C. GitHub Pagesで公開する
+1. https://github.com/ にサインインして、新しいリポジトリを作成します。Publicリポジトリの場合、ファイルは誰でも取得できることに注意してください。
+2. ZIPを解凍した中から index.html、manifest.json、sw.js、icon-192.png、icon-512.png をリポジトリ直下にアップロードします。
+3. GitHubのリポジトリ > Settings > Pagesを開き、Deploy from a branchを選択します。Branchをmain、フォルダを/(root)にして保存します。
+4. 公開URLが発行されたら、Supabase > Authentication > URL Configurationを開き、Site URLとRedirect URLsに公開URLを設定します（例：https://ユーザー名.github.io/リポジトリ名/）。
+5. 公開URLを開き、アカウント名JJ1PSHと設定したパスワードでログインできるか確認します。正しくないアカウント名ではログインできないことも確認してください。
+6. iPadのSafariで公開URLを開き、共有 > ホーム画面に追加を選びます。
+
+D. 制限と注意点
+- この方式は、アプリの画面上で通常の利用者を1アカウントに制限する簡易方式です。GitHub Pagesは静的ホスティングなので、HTML・JavaScript・埋め込みTarget 1900データ自体は公開URLから取得できます。秘密にしたい情報は入れないでください。
+- パスワードを知る人は誰でもログインできるため、2人だけで共有し、他人に転送しないでください。
+- 単語データや出題範囲は各端末のブラウザに保存され、アカウント間・端末間では自動同期されません。
+- ログインにはインターネット接続が必要です。パスワードを忘れた場合はSupabase管理画面から変更してください。
+- このZIPにはSupabaseの実プロジェクト情報が入っていません。上記の設定をしない限りログインは動作しません。
